@@ -10,21 +10,38 @@
   <script type="text/javascript" charset="utf-8">
   
     whenever.definitions = {
-      'Click Me!': 'a.click-me'
+      'Click Me!': 'a.click-me',
+      'Focus Me!': 'input[name=focus-me]'
     }
     
     whenever.actions = {
       'Change the text to "Clicked!"': function(){
         $(this).text('Clicked!')
+      },
+      'Change the value to "([^"]*)"': function(value){
+        console.log('changing', value)
+        $(this).val(value)
       }
     }
   
     whenever('Click Me!').is('clicked').then('Change the text to "Clicked!"')
+    whenever('Focus Me!').is('focussed').then('Change the value to "Focussed!"')
+    whenever('Focus Me!').is('blurred').then('Change the value to "Blurred!"')
   
     module("Whenever")
     test("click", function(){
       $('a.click-me').trigger('click')
       equals($('a.click-me').text(), 'Clicked!')
+    })
+    
+    test("focus", function(){
+      $('input[name=focus-me]').trigger('focus')
+      equals($('input[name=focus-me]').val(), 'Focussed!')
+    })
+    
+    test("blur", function(){
+      $('input[name=focus-me]').trigger('blur')
+      equals($('input[name=focus-me]').val(), 'Blurred!')
     })
   </script>
 </head>
@@ -36,5 +53,6 @@
 </body>
 
 <a class="click-me">Click Me!</a>
+<input type="text" name="focus-me" value="Focus Me!">
 
 </html>
