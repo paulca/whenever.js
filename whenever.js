@@ -18,6 +18,17 @@ var whenever = function(element){
   return chain();
 }
 
+whenever.definitions = {
+  add: function(object){
+    for(var label in object)
+    {
+      this[label] = object[label]
+    }
+  }
+}
+
+whenever.actions = whenever.definitions
+
 whenever.translations = {
   'clicked':'click',
   'blurred': 'focusout',

@@ -9,12 +9,12 @@
   
   <script type="text/javascript" charset="utf-8">
   
-    whenever.definitions = {
+    whenever.definitions.add({
       'Click Me!': 'a.click-me',
       'Focus Me!': 'input[name=focus-me]'
-    }
+    })
     
-    whenever.actions = {
+    whenever.actions.add({
       'Change the text to "Clicked!"': function(){
         $(this).text('Clicked!')
       },
@@ -22,7 +22,7 @@
         console.log('changing', value)
         $(this).val(value)
       }
-    }
+    })
   
     whenever('Click Me!').is('clicked').then('Change the text to "Clicked!"')
     whenever('Focus Me!').is('focussed').then('Change the value to "Focussed!"')
