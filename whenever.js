@@ -22,18 +22,20 @@ whenever.translations = {
   'clicked':'click',
   'blurred': 'focusout',
   'focussed':'focusin',
-  'submitted':'submit'
+  'submitted':'submit',
+  'hovered over':'focusin'
 }
 
 for(state in whenever.translations)
 {
   (function(state){
     whenever[state] = function(selector, action){
-      jQuery(function(){
-        var function_to_apply, arguments;
+
+      var function_to_apply = function(){
+        var arguments;
         if(typeof whenever.actions[action] === 'function')
         {
-          function_to_apply = whenever.actions[action];
+          return whenever.actions[action];
         }
         else
         {
@@ -43,20 +45,22 @@ for(state in whenever.translations)
             if(match = action.match(new RegExp(matcher)))
             {
               match.shift()
-              function_to_apply = function(action_name, args){
+              return function(action_name, args){
                 return function(){
                   whenever.actions[action_name].apply(this, args)
                 }
               }(matcher, match)
-              break;
             }
             
           }
         }
+      }
+      
+      jQuery(document).ready(function(){
         jQuery(document).delegate(
             selector,
             whenever.translations[state],
-            function_to_apply
+            function_to_apply()
           )
       })
     }
