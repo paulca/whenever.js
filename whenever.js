@@ -10,12 +10,21 @@ var whenever = function(element){
         return chain();
       },
       given: function(condition){
-        binding.condition = condition;
+        var other_conditions = function(){ return true}
+        if(typeof binding.condition === 'function')
+        {
+          other_conditions = binding.condition
+        }
+        binding.condition = function(){
+          return whenever.conditions[condition].apply(this) && other_conditions();
+        }
         return chain();
       },
       then: function(action){
         whenever[binding.event](binding.selector, action, binding.condition);
-        return chain();
+        var out = chain()
+        out.and = out.then;
+        return out;
       }
     }
   }
@@ -52,9 +61,9 @@ for(state in whenever.translations)
         if(typeof whenever.actions[action] === 'function')
         {
           return function(){
-            if(typeof whenever.conditions[condition] === 'function')
+            if(typeof condition === 'function')
             {
-              if(whenever.conditions[condition].apply(this) === false)
+              if(condition.apply(this) === false)
               {
                 return function(){}
               }
@@ -71,10 +80,10 @@ for(state in whenever.translations)
             {
               match.shift()
               return function(action_name, args){
-                if(typeof whenever.conditions[condition] === 'function')
+                if(typeof condition === 'function')
                 {
                   return function(){
-                    if(whenever.conditions[condition].apply(this) === true)
+                    if(condition.apply(this) === true)
                     {
                       whenever.actions[action_name].apply(this, args)
                     }

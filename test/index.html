@@ -10,11 +10,12 @@
   <script type="text/javascript" charset="utf-8">
   
     whenever.definitions.add({
-      'Click Me!': 'a#click-me',
-      'And Me!': 'a#and-me',
-      'Click Me Too!': 'a#click-me-too',
-      'Focus Me!': 'input#focus-me',
-      'Focus Me Too!': 'input#focus-me-too'
+      'Click Me!':        'a#click-me',
+      'And Me!':          'a#and-me',
+      'Click Me Too!':    'a#click-me-too',
+      'Focus Me!':        'input#focus-me',
+      'Focus Me Too!':    'input#focus-me-too',
+      'Two Things to Me': 'a#two-things'
     })
     
     whenever.actions.add({
@@ -23,6 +24,9 @@
       },
       'Change the value to "([^"]*)"': function(value){
         $(this).val(value)
+      },
+      'Put "I Was" at the beginning': function(){
+        $(this).text("I Was " + $(this).text())
       }
     })
     
@@ -46,6 +50,10 @@
       .is('clicked')
       .given('the value is blue')
       .then('Change the value to "Clicked!"')
+    whenever  ('Two Things to Me')
+      .is     ('clicked')
+      .then   ('Change the text to "Clicked!"')
+      .and    ('Put "I Was" at the beginning')
   
     module("Whenever")
     test("click", function(){
@@ -64,6 +72,12 @@
       var input = $('input#focus-me')
       input.trigger('blur')
       equals(input.val(), 'Blurred!')
+    })
+    
+    test("chaining then with and", function(){
+      var link = $('a#two-things')
+      link.trigger('click')
+      equals(link.text(), 'I Was Clicked!')
     })
     
     test("simple if", function(){
@@ -93,6 +107,7 @@
 
 <a id="click-me">Click Me!</a>
 <a id="click-me-too">Click Me Too!</a>
+<a id="two-things">Two Things Happen to Me!</a>
 <input id="focus-me" type="text" name="focus-me" value="Focus Me!">
 <input id="focus-me-too" type="text" name="focus-me-too" value="Focus Me Too!">
 
