@@ -12,7 +12,7 @@ For example, take the following:
 
 By itself, this does nothing, but it very clearly describes what will happen.
 
-It's easy to hook up. First, `'click Me!'` should map to an element:
+It's easy to hook up. First, `'Click Me!'` should map to an element:
 
     whenever.definitions.add({
       'Click Me!': 'a.click-me'
