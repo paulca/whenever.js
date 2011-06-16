@@ -71,6 +71,15 @@ for(state in whenever.translations)
             {
               match.shift()
               return function(action_name, args){
+                if(typeof whenever.conditions[condition] === 'function')
+                {
+                  return function(){
+                    if(whenever.conditions[condition].apply(this) === true)
+                    {
+                      whenever.actions[action_name].apply(this, args)
+                    }
+                  }
+                }
                 return function(){
                   whenever.actions[action_name].apply(this, args)
                 }

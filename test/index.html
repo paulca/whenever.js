@@ -11,8 +11,10 @@
   
     whenever.definitions.add({
       'Click Me!': 'a#click-me',
+      'And Me!': 'a#and-me',
       'Click Me Too!': 'a#click-me-too',
-      'Focus Me!': 'input#focus-me'
+      'Focus Me!': 'input#focus-me',
+      'Focus Me Too!': 'input#focus-me-too'
     })
     
     whenever.actions.add({
@@ -27,6 +29,9 @@
     whenever.conditions.add({
       'one is two': function(){
         return 1 == 2
+      },
+      'the value is blue': function(){
+        return $(this).val() === 'Blue'
       }
     })
   
@@ -37,6 +42,10 @@
       .is('clicked')
       .given('one is two')
       .then('Change the text to "Clicked!"')
+    whenever('Focus Me Too!')
+      .is('clicked')
+      .given('the value is blue')
+      .then('Change the value to "Clicked!"')
   
     module("Whenever")
     test("click", function(){
@@ -62,6 +71,16 @@
       link.trigger('click')
       equals(link.text(), 'Click Me Too!')
     })
+    
+    test("complex if", function(){
+      var input = $('input#focus-me-too')
+      input.trigger('click')
+      equals(input.val(), 'Focus Me Too!')
+      
+      input.val('Blue')
+      input.trigger('click')
+      equals(input.val(), 'Clicked!')
+    })
 
   </script>
 </head>
@@ -75,5 +94,6 @@
 <a id="click-me">Click Me!</a>
 <a id="click-me-too">Click Me Too!</a>
 <input id="focus-me" type="text" name="focus-me" value="Focus Me!">
+<input id="focus-me-too" type="text" name="focus-me-too" value="Focus Me Too!">
 
 </html>
