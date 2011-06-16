@@ -10,8 +10,9 @@
   <script type="text/javascript" charset="utf-8">
   
     whenever.definitions.add({
-      'Click Me!': 'a.click-me',
-      'Focus Me!': 'input[name=focus-me]'
+      'Click Me!': 'a#click-me',
+      'Click Me Too!': 'a#click-me-too',
+      'Focus Me!': 'input#focus-me'
     })
     
     whenever.actions.add({
@@ -19,30 +20,49 @@
         $(this).text('Clicked!')
       },
       'Change the value to "([^"]*)"': function(value){
-        console.log('changing', value)
         $(this).val(value)
+      }
+    })
+    
+    whenever.conditions.add({
+      'one is two': function(){
+        return 1 == 2
       }
     })
   
     whenever('Click Me!').is('clicked').then('Change the text to "Clicked!"')
     whenever('Focus Me!').is('focussed').then('Change the value to "Focussed!"')
     whenever('Focus Me!').is('blurred').then('Change the value to "Blurred!"')
+    whenever('Click Me Too!')
+      .is('clicked')
+      .given('one is two')
+      .then('Change the text to "Clicked!"')
   
     module("Whenever")
     test("click", function(){
-      $('a.click-me').trigger('click')
-      equals($('a.click-me').text(), 'Clicked!')
+      var link = $('a#click-me')
+      link.trigger('click')
+      equals(link.text(), 'Clicked!')
     })
     
     test("focus", function(){
-      $('input[name=focus-me]').trigger('focus')
-      equals($('input[name=focus-me]').val(), 'Focussed!')
+      var input = $('input#focus-me')
+      input.trigger('focus')
+      equals(input.val(), 'Focussed!')
     })
     
     test("blur", function(){
-      $('input[name=focus-me]').trigger('blur')
-      equals($('input[name=focus-me]').val(), 'Blurred!')
+      var input = $('input#focus-me')
+      input.trigger('blur')
+      equals(input.val(), 'Blurred!')
     })
+    
+    test("simple if", function(){
+      var link = $('a#click-me-too')
+      link.trigger('click')
+      equals(link.text(), 'Click Me Too!')
+    })
+
   </script>
 </head>
 <body>
@@ -52,7 +72,8 @@
   <ol id="qunit-tests"></ol>
 </body>
 
-<a class="click-me">Click Me!</a>
-<input type="text" name="focus-me" value="Focus Me!">
+<a id="click-me">Click Me!</a>
+<a id="click-me-too">Click Me Too!</a>
+<input id="focus-me" type="text" name="focus-me" value="Focus Me!">
 
 </html>

@@ -9,8 +9,12 @@ var whenever = function(element){
         binding.event = event;
         return chain();
       },
+      given: function(condition){
+        binding.condition = condition;
+        return chain();
+      },
       then: function(action){
-        whenever[binding.event](binding.selector, action)
+        whenever[binding.event](binding.selector, action, binding.condition)
         return chain();
       }
     }
@@ -28,6 +32,7 @@ whenever.definitions = {
 }
 
 whenever.actions = whenever.definitions
+whenever.conditions = whenever.definitions
 
 whenever.translations = {
   'clicked':'click',
@@ -40,13 +45,22 @@ whenever.translations = {
 for(state in whenever.translations)
 {
   (function(state){
-    whenever[state] = function(selector, action){
+    whenever[state] = function(selector, action, condition){
 
       var function_to_apply = function(){
         var arguments;
         if(typeof whenever.actions[action] === 'function')
         {
-          return whenever.actions[action];
+          return function(){
+            if(typeof whenever.conditions[condition] === 'function')
+            {
+              if(whenever.conditions[condition].apply(this) === false)
+              {
+                return function(){}
+              }
+            }
+            whenever.actions[action].apply(this);
+          }
         }
         else
         {
