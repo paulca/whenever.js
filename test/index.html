@@ -10,12 +10,13 @@
   <script type="text/javascript" charset="utf-8">
   
     whenever.definitions.add({
-      'Click Me!':        'a#click-me',
-      'And Me!':          'a#and-me',
-      'Click Me Too!':    'a#click-me-too',
-      'Focus Me!':        'input#focus-me',
-      'Focus Me Too!':    'input#focus-me-too',
-      'Two Things to Me': 'a#two-things'
+      'Click Me!':              'a#click-me',
+      'And Me!':                'a#and-me',
+      'Click Me Too!':          'a#click-me-too',
+      'Focus Me!':              'input#focus-me',
+      'Focus Me Too!':          'input#focus-me-too',
+      'Two Things to Me':       'a#two-things',
+      'Nothing Happens to Me':  'a#nothing'
     })
     
     whenever.actions.add({
@@ -36,24 +37,35 @@
       },
       'the value is blue': function(){
         return $(this).val() === 'Blue'
+      },
+      'this is true': function(){
+        return true
+      },
+      'this is false': function(){
+        return false
       }
     })
   
     whenever('Click Me!').is('clicked').then('Change the text to "Clicked!"')
     whenever('Focus Me!').is('focussed').then('Change the value to "Focussed!"')
     whenever('Focus Me!').is('blurred').then('Change the value to "Blurred!"')
-    whenever('Click Me Too!')
-      .is('clicked')
-      .given('one is two')
-      .then('Change the text to "Clicked!"')
-    whenever('Focus Me Too!')
-      .is('clicked')
-      .given('the value is blue')
-      .then('Change the value to "Clicked!"')
+    whenever  ('Click Me Too!')
+      .is     ('clicked')
+      .given  ('one is two')
+      .then   ('Change the text to "Clicked!"')
+    whenever  ('Focus Me Too!')
+      .is     ('clicked')
+      .given  ('the value is blue')
+      .then   ('Change the value to "Clicked!"')
     whenever  ('Two Things to Me')
       .is     ('clicked')
       .then   ('Change the text to "Clicked!"')
       .and    ('Put "I Was" at the beginning')
+    whenever  ('Nothing Happens to Me')
+      .is     ('clicked')
+      .given  ('this is true')
+      .and    ('this is false')
+      .then   ('Change the text to "Clicked!"')
   
     module("Whenever")
     test("click", function(){
@@ -95,6 +107,12 @@
       input.trigger('click')
       equals(input.val(), 'Clicked!')
     })
+    
+    test("chaining given with and", function(){
+      var link = $('a#nothing')
+      link.trigger('click')
+      equals(link.text(), 'Nothing Happens to Me!')
+    })
 
   </script>
 </head>
@@ -108,7 +126,9 @@
 <a id="click-me">Click Me!</a>
 <a id="click-me-too">Click Me Too!</a>
 <a id="two-things">Two Things Happen to Me!</a>
+<a id="nothing">Nothing Happens to Me!</a>
 <input id="focus-me" type="text" name="focus-me" value="Focus Me!">
 <input id="focus-me-too" type="text" name="focus-me-too" value="Focus Me Too!">
+
 
 </html>

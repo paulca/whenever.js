@@ -18,11 +18,13 @@ var whenever = function(element){
         binding.condition = function(){
           return whenever.conditions[condition].apply(this) && other_conditions();
         }
-        return chain();
+        var out = chain()
+        out.and = out.given
+        return out;
       },
       then: function(action){
         whenever[binding.event](binding.selector, action, binding.condition);
-        var out = chain()
+        var out = chain();
         out.and = out.then;
         return out;
       }
