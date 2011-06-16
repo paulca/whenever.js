@@ -14,7 +14,7 @@ var whenever = function(element){
         return chain();
       },
       then: function(action){
-        whenever[binding.event](binding.selector, action, binding.condition)
+        whenever[binding.event](binding.selector, action, binding.condition);
         return chain();
       }
     }
