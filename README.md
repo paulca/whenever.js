@@ -38,6 +38,39 @@ Or you can do this with a RegExp for re-use:
 
 That's it!
 
+## Conditions ##
+
+Goodbye to nested `if` statements! Add conditionals:
+
+    whenever('Click Me!')
+         .is('clicked')
+      .given('one and one make two')
+       .then('Change the text to "Clicked!"')
+
+And implement:
+
+    whenever.conditions.add({
+      'one and one make two': function(){
+        return 1+1 === 2
+      }
+    })
+
+Usefully, the jQuery object is passed along:
+
+    whenever('Click Me!')
+         .is('clicked')
+      .given('the text of this is "Something"')
+       .then('Change the text to "Clicked!"')
+
+And implement:
+
+    whenever.conditions.add({
+      'the text of this is "Something"': function(){
+        return $(this).text() === 'Something'
+      }
+    })
+
+
 ## Installation ##
 
 Whenever.js currently depends on `jQuery`. After including jQuery, just add the `whenever.js` script to your project:
