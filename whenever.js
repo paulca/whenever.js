@@ -37,7 +37,7 @@ var whenever = function(element){
                 match.shift()
                 return function(condition_name, args){
                   return function(){
-                    whenever.conditions[condition_name].apply(this, args)
+                    return whenever.conditions[condition_name].apply(this, args)
                   }
                 }(matcher, match)
               }
@@ -104,7 +104,7 @@ for(state in whenever.translations)
                 return function(){}
               }
             }
-            whenever.actions[action].apply(this);
+            return whenever.actions[action].apply(this);
           }
         }
         else
@@ -121,12 +121,12 @@ for(state in whenever.translations)
                   return function(){
                     if(condition.apply(this) === true)
                     {
-                      whenever.actions[action_name].apply(this, args)
+                      return whenever.actions[action_name].apply(this, args)
                     }
                   }
                 }
                 return function(){
-                  whenever.actions[action_name].apply(this, args)
+                  return whenever.actions[action_name].apply(this, args)
                 }
               }(matcher, match)
             }
