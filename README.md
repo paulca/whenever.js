@@ -43,9 +43,9 @@ That's it!
 Goodbye to nested `if` statements! Add conditionals:
 
     whenever('Click Me!')
-         .is('clicked')
+      .is   ('clicked')
       .given('one and one make two')
-       .then('Change the text to "Clicked!"')
+      .then ('Change the text to "Clicked!"')
 
 And implement:
 
@@ -58,9 +58,9 @@ And implement:
 Usefully, the jQuery object is passed along:
 
     whenever('Click Me!')
-         .is('clicked')
+      .is   ('clicked')
       .given('the text of this is "Something"')
-       .then('Change the text to "Clicked!"')
+      .then ('Change the text to "Clicked!"')
 
 And implement:
 
@@ -74,14 +74,14 @@ And implement:
 
 You can chain conditions and actions:
 
-  whenever('Click Me!')
-       .is('clicked')
-    .given('the text of this is "Something"')
-      .and('Some other condition')
-      .and('Another condition')
-     .then('Change the text to "Clicked!"')
-      .and('Do something else')
-      .and('Do another thing')
+    whenever('Click Me!')
+      .is   ('clicked')
+      .given('the text of this is "Something"')
+      .and  ('Some other condition')
+      .and  ('Another condition')
+      .then ('Change the text to "Clicked!"')
+      .and  ('Do something else')
+      .and  ('Do another thing')
 
 That's it!
 
