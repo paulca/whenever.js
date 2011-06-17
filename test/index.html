@@ -15,6 +15,7 @@
       'Click Me Too!':          'a#click-me-too',
       'Focus Me!':              'input#focus-me',
       'Focus Me Too!':          'input#focus-me-too',
+      'I am Blue':              'a#blue',
       'Two Things to Me':       'a#two-things',
       'Nothing Happens to Me':  'a#nothing'
     })
@@ -43,6 +44,9 @@
       },
       'this is false': function(){
         return false
+      },
+      'I really am "([^"]*)"': function(value){
+        return $(this).text() === value
       }
     })
   
@@ -65,6 +69,10 @@
       .is     ('clicked')
       .given  ('this is true')
       .and    ('this is false')
+      .then   ('Change the text to "Clicked!"')
+    whenever  ('I am Blue')
+      .is     ('clicked')
+      .given  ('I really am "Blue"')
       .then   ('Change the text to "Clicked!"')
   
     module("Whenever")
@@ -108,6 +116,12 @@
       equals(input.val(), 'Clicked!')
     })
     
+    test("if with regex", function(){
+      var link = $('a#blue')
+      link.trigger('click')
+      equals(link.text(), 'Clicked!')
+    })
+    
     test("chaining given with and", function(){
       var link = $('a#nothing')
       link.trigger('click')
@@ -127,6 +141,7 @@
 <a id="click-me-too">Click Me Too!</a>
 <a id="two-things">Two Things Happen to Me!</a>
 <a id="nothing">Nothing Happens to Me!</a>
+<a id="blue">Blue</a>
 <input id="focus-me" type="text" name="focus-me" value="Focus Me!">
 <input id="focus-me-too" type="text" name="focus-me-too" value="Focus Me Too!">
 

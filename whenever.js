@@ -10,13 +10,36 @@ var whenever = function(element){
         return chain();
       },
       given: function(condition){
+        var function_to_apply = function(){
+          if(typeof whenever.conditions[condition] === 'function')
+          {
+            return whenever.conditions[condition]
+          }
+          else
+          {
+            for(var matcher in whenever.conditions)
+            {
+              var match;
+              if(match = condition.match(new RegExp(matcher)))
+              {
+                match.shift()
+                return function(condition_name, args){
+                  return function(){
+                    whenever.conditions[condition_name].apply(this, args)
+                  }
+                }(matcher, match)
+              }
+            }
+          }
+        }
+        
         var other_conditions = function(){ return true}
         if(typeof binding.condition === 'function')
         {
           other_conditions = binding.condition
         }
         binding.condition = function(){
-          return whenever.conditions[condition].apply(this) && other_conditions();
+          return function_to_apply().apply(this) && other_conditions();
         }
         var out = chain()
         out.and = out.given
@@ -59,7 +82,6 @@ for(state in whenever.translations)
     whenever[state] = function(selector, action, condition){
 
       var function_to_apply = function(){
-        var arguments;
         if(typeof whenever.actions[action] === 'function')
         {
           return function(){
@@ -96,7 +118,6 @@ for(state in whenever.translations)
                 }
               }(matcher, match)
             }
-            
           }
         }
       }
