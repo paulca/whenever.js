@@ -38,7 +38,7 @@ Or you can do this with a RegExp for re-use:
 
 ```javascript
 whenever.actions.add({
-  'Change the text to "([^"]*)"'': function(value){
+  'Change the text to "([^"]*)"': function(value){
     $(this).text(value)
   }
 })
@@ -82,6 +82,16 @@ And implement:
 whenever.conditions.add({
   'the text of this is "Something"': function(){
     return $(this).text() === 'Something'
+  }
+})
+```
+
+or, again, you can use a RegExp:
+
+```javascript
+whenever.conditions.add({
+  'the text of this is "([^"]*)"': function(value){
+    return $(this).text() === value
   }
 })
 ```
