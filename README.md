@@ -85,6 +85,16 @@ You can chain conditions and actions:
 
 That's it!
 
+## Supported events ##
+
+At the moment, the following actions are supported:
+
+    'clicked':      'click',
+    'blurred':      'focusout',
+    'focussed':     'focusin',
+    'submitted':    'submit',
+    'hovered over': 'focusin'
+
 ## Installation ##
 
 Whenever.js currently depends on `jQuery`. After including jQuery, just add the `whenever.js` script to your project:
