@@ -54,7 +54,8 @@ Goodbye to nested `if` statements! Add conditionals:
 whenever('Click Me!')
   .is   ('clicked')
   .given('one and one make two')
-  .then ('Change the text to "Clicked!"')```
+  .then ('Change the text to "Clicked!"')
+```
 
 And implement:
 
