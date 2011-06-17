@@ -53,6 +53,7 @@
     whenever('Click Me!').is('clicked').then('Change the text to "Clicked!"')
     whenever('Focus Me!').is('focussed').then('Change the value to "Focussed!"')
     whenever('Focus Me!').is('blurred').then('Change the value to "Blurred!"')
+    whenever("Not Mapped").is('clicked').then('Change the text to "Clicked!"')
     whenever  ('Click Me Too!')
       .is     ('clicked')
       .given  ('one is two')
@@ -92,6 +93,12 @@
       var input = $('input#focus-me')
       input.trigger('blur')
       equals(input.val(), 'Blurred!')
+    })
+    
+    test("not mapped", function(){
+      var link = $('a#not-mapped')
+      link.trigger('click')
+      equals(link.text(), 'Clicked!')
     })
     
     test("chaining then with and", function(){
@@ -142,6 +149,7 @@
 <a id="two-things">Two Things Happen to Me!</a>
 <a id="nothing">Nothing Happens to Me!</a>
 <a id="blue">Blue</a>
+<a id="not-mapped">Not Mapped</a>
 <input id="focus-me" type="text" name="focus-me" value="Focus Me!">
 <input id="focus-me-too" type="text" name="focus-me-too" value="Focus Me Too!">
 

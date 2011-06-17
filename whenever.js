@@ -1,6 +1,18 @@
 var whenever = function(element){
+  
+  var choose_element = function(element){
+    if(typeof whenever.definitions[element] === 'string')
+    {
+      return whenever.definitions[element]
+    }
+    else
+    {
+      return 'a:contains("' + element + '")'
+    }
+  }
+  
   var binding = {
-    selector: whenever.definitions[element]
+    selector: choose_element(element)
   };
 
   var chain =  function(){
