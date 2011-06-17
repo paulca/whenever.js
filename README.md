@@ -99,6 +99,7 @@ At the moment, the following actions are supported:
 
 Whenever.js currently depends on `jQuery`. After including jQuery, just add the `whenever.js` script to your project:
 
+    <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="whenever.js"></script>
 
 You might prefer to place your behavior, definitions and actions in separate files, or all in the one file.
