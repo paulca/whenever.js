@@ -85,7 +85,7 @@ whenever.translations = {
   'blurred': 'focusout',
   'focussed':'focusin',
   'submitted':'submit',
-  'hovered over':'focusin'
+  'hovered over':'mouseenter'
 }
 
 for(state in whenever.translations)

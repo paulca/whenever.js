@@ -110,7 +110,7 @@ At the moment, the following actions are supported:
     'blurred':      'focusout',
     'focussed':     'focusin',
     'submitted':    'submit',
-    'hovered over': 'focusin'
+    'hovered over': 'mouseenter'
 
 ## Installation ##
 
