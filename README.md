@@ -93,11 +93,11 @@ You can chain conditions and actions:
 whenever('Click Me!')
   .is   ('clicked')
   .given('the text of this is "Something"')
-  .and  ('Some other condition')
-  .and  ('Another condition')
+    .and('Some other condition')
+    .and('Another condition')
   .then ('Change the text to "Clicked!"')
-  .and  ('Do something else')
-  .and  ('Do another thing')
+    .and('Do something else')
+    .and('Do another thing')
 ```
 
 That's it!
