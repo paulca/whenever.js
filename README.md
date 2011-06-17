@@ -8,33 +8,41 @@ Whenever helps you to organise your javascripts in a clean and tidy way, and kee
 
 For example, take the following:
 
-    whenever('Click Me!').is('clicked').then('Change the text to "Clicked!"')
+```javascript
+whenever('Click Me!').is('clicked').then('Change the text to "Clicked!"')
+```
 
 By itself, this does nothing, but it very clearly describes what will happen.
 
 It's easy to hook up. First, `'Click Me!'` should map to an element:
 
-    whenever.definitions.add({
-      'Click Me!': 'a.click-me'
-    })
+```javascript
+whenever.definitions.add({
+  'Click Me!': 'a.click-me'
+})
+```
 
 `clicked` is automatically mapped to the `click` event.
 
 Finally, `'Change the text to "Clicked!"'` should be hooked up to a function:
 
-    whenever.actions.add({
-      'Change the text to "Clicked!"': function(){
-        $(this).text("Clicked!")
-      }
-    })
+```javascript
+whenever.actions.add({
+  'Change the text to "Clicked!"': function(){
+    $(this).text("Clicked!")
+  }
+})
+```
 
 Or you can do this with a RegExp for re-use:
 
-    whenever.actions.add({
-      'Change the text to "([^"]*)"'': function(value){
-        $(this).text(value)
-      }
-    })
+```javascript
+whenever.actions.add({
+  'Change the text to "([^"]*)"'': function(value){
+    $(this).text(value)
+  }
+})
+```
 
 That's it!
 
@@ -42,46 +50,56 @@ That's it!
 
 Goodbye to nested `if` statements! Add conditionals:
 
-    whenever('Click Me!')
-         .is('clicked')
-      .given('one and one make two')
-       .then('Change the text to "Clicked!"')
+```javascript
+whenever('Click Me!')
+     .is('clicked')
+  .given('one and one make two')
+   .then('Change the text to "Clicked!"')
+```
 
 And implement:
 
-    whenever.conditions.add({
-      'one and one make two': function(){
-        return 1+1 === 2
-      }
-    })
+```javascript
+whenever.conditions.add({
+  'one and one make two': function(){
+    return 1+1 === 2
+  }
+})
+```
 
 Usefully, the jQuery object is passed along:
 
-    whenever('Click Me!')
-         .is('clicked')
-      .given('the text of this is "Something"')
-       .then('Change the text to "Clicked!"')
+```javascript
+whenever('Click Me!')
+     .is('clicked')
+  .given('the text of this is "Something"')
+   .then('Change the text to "Clicked!"')
+```
 
 And implement:
 
-    whenever.conditions.add({
-      'the text of this is "Something"': function(){
-        return $(this).text() === 'Something'
-      }
-    })
+```javascript
+whenever.conditions.add({
+  'the text of this is "Something"': function(){
+    return $(this).text() === 'Something'
+  }
+})
+```
 
 ## Chaining ##
 
 You can chain conditions and actions:
 
-  whenever('Click Me!')
-       .is('clicked')
-    .given('the text of this is "Something"')
-      .and('Some other condition')
-      .and('Another condition')
-     .then('Change the text to "Clicked!"')
-      .and('Do something else')
-      .and('Do another thing')
+```javascript
+whenever('Click Me!')
+     .is('clicked')
+  .given('the text of this is "Something"')
+    .and('Some other condition')
+    .and('Another condition')
+   .then('Change the text to "Clicked!"')
+    .and('Do something else')
+    .and('Do another thing')
+```
 
 That's it!
 
@@ -89,6 +107,8 @@ That's it!
 
 Whenever.js currently depends on `jQuery`. After including jQuery, just add the `whenever.js` script to your project:
 
+```html
     <script type="text/javascript" src="whenever.js"></script>
+```
 
 You might prefer to place your behavior, definitions and actions in separate files, or all in the one file.
