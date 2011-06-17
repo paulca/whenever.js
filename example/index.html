@@ -2,9 +2,21 @@
 <title>whatever.js Example</title>
 <script src="../test/jquery.js" type="text/javascript" charset="utf-8"></script>
 <script src="../whenever.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="styles.css" type="text/css" media="screen" title="no title" charset="utf-8">
 
 <script type="text/javascript" charset="utf-8">
+  whenever.actions.add({
+    'Alert "([^""]*)"': function(value){
+      alert(value)
+      return false
+    }
+  })
+
   whenever('Click Me!').is('clicked').then('Alert "Hello!"')
 </script>
 
-<a id="Click Me!">Hej Hej!</a>
+<body>
+  <div>
+    <a href="#">Click Me!</a>
+  </div>
+</body>
