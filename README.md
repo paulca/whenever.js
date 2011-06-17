@@ -1,6 +1,6 @@
 # Whenever.js #
 
-Whenever is a javascript library that provides a simple domain specific language to specify your application's behavior using a syntax that reads like English.
+Whenever is a javascript library that provides a simple domain specific language on top of jQuery to specify your application's behavior using a syntax that reads like English.
 
 Whenever helps you to organise your javascripts in a clean and tidy way, and keeps your implementation logic separate from your behavioral logic.
 
