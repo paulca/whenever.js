@@ -125,7 +125,25 @@ At the moment, the following actions are supported:
 
 ## Installation ##
 
-Whenever.js currently depends on `jQuery`. After including jQuery, just add the `whenever.js` script to your project:
+Whenever.js needs a DOM library in order to bind actions to events. Out of the box, it comes with support for `jQuery`, but as long as you have an underlying library that supports standard events, you can probably use it.
+
+If your DOM library supports jQuery syntax (eg. Zepto), you can just replace jQuery with that globally. eg. with Zepto:
+
+```javascript
+var jQuery = $;
+```
+
+Alternatively, you can implement your own `whenever.bind_events` function. Here's what it looks like for jQuery:
+
+```javascript
+whenever.bind_events = function(selector, event, action){
+  return jQuery(document).ready(function(){
+    return jQuery(document).delegate(selector, event, action);
+  });
+}
+```
+
+After including your DOM library of choice, just add the `whenever.js` script to your project, eg. for jQuery:
 
 ```html
     <script type="text/javascript" src="jquery.js"></script>

@@ -134,13 +134,17 @@ for(state in whenever.translations)
         }
       };
       
-      jQuery(document).ready(function(){
-        jQuery(document).delegate(
-            selector,
-            whenever.translations[state],
-            function_to_apply()
-          );
-      });
+      return whenever.bind_events(
+        selector,
+        whenever.translations[state],
+        function_to_apply()
+      )
     };
   })(state);
+}
+
+whenever.bind_events = function(selector, event, action){
+  return jQuery(document).ready(function(){
+    return jQuery(document).delegate(selector, event, action);
+  });
 }
