@@ -4,6 +4,8 @@ Whenever is a javascript library that provides a simple domain specific language
 
 Whenever helps you to organise your javascripts in a clean and tidy way, and keeps your implementation logic separate from your behavioral logic.
 
+NB: This is not a testing library. cucumber provided the inspiration for the syntax and separation of specification/implementation, but you should be able to use whenever.js to write actual apps.
+
 ## Example ##
 
 For example, take the following:
