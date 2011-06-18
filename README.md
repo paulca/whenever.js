@@ -148,8 +148,8 @@ whenever.bind_events = function(selector, event, action){
 After including your DOM library of choice, just add the `whenever.js` script to your project, eg. for jQuery:
 
 ```html
-    <script type="text/javascript" src="jquery.js"></script>
-    <script type="text/javascript" src="whenever.js"></script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="whenever.js"></script>
 ```
 
 You might prefer to place your behavior, definitions and actions in separate files, or all in the one file.
