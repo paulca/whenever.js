@@ -85,7 +85,8 @@ whenever.translations = {
   'blurred': 'focusout',
   'focussed':'focusin',
   'submitted':'submit',
-  'hovered over':'mouseenter'
+  'hovered over':'mouseenter',
+  'changed': 'change'
 };
 
 for(state in whenever.translations)
