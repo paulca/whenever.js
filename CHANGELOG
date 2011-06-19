@@ -1,4 +1,6 @@
 Mon Jun 20
 - - - - - -
+- Add a neat blog example
+- Separate out all the definitions
 - Add VERSION file
 - Add 'changed' event [paulca]
