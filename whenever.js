@@ -68,17 +68,17 @@ var whenever = function(element){
   return chain();
 };
 
-whenever.definitions = {
-  add: function(object){
-    for(var label in object)
-    {
-      this[label] = object[label];
-    }
+whenever.definer = function(){}
+whenever.definer.prototype.add = function(object){
+  for(var label in object)
+  {
+    this[label] = object[label];
   }
 };
 
-whenever.actions = whenever.definitions;
-whenever.conditions = whenever.definitions;
+whenever.definitions  = new whenever.definer;
+whenever.actions      = new whenever.definer;
+whenever.conditions   = new whenever.definer;
 
 whenever.translations = {
   'clicked':'click',
