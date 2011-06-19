@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<title>whatever.js Example</title>
+<script src="../test/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="../whenever.js" type="text/javascript" charset="utf-8"></script>
+<style type="text/css" media="screen">
+  form#new-post { display: none }
+</style>
+
+<script type="text/javascript" charset="utf-8">
+  whenever.definitions.add({
+    'the new post form': 'form#new-post'
+  })
+
+  whenever.actions.add({
+    'add the post to the page': function(){
+      var title = $('form#new-post input[name=title]').val()
+      var content = $('form#new-post textarea[name=content]').val()
+      $('div#posts').append("<h2>" + title + "</h2><p>" + content + "</p>")
+      return false
+    },
+    'slide the new post form (in|out)': function(){
+      $('form#new-post').toggle('slide')
+      return false
+    },
+    'reset the form': function(){
+      this.reset()
+    }
+  })
+
+  whenever('New Post').is('clicked').then('slide the new post form in')
+  whenever('the new post form')
+    .is   ('submitted')
+    .then ('add the post to the page')
+      .and('slide the new post form out')
+      .and('reset the form')
+    
+</script>
+
+<body>
+  <a href="#">New Post</a>
+  <form id="new-post">
+    <label>
+      Title
+      <input type="text" name="title">
+    </label>
+    <label>
+      Content
+      <textarea name="content"></textarea>
+    </label>
+    <input type="submit" "Save">
+  </form>
+  
+  <div id="posts">
+    
+  </div>
+  
+</body>
