@@ -22,13 +22,13 @@
     
     whenever.actions.add({
       'Change the text to "Clicked!"': function(){
-        $(this).text('Clicked!')
+        this.innerHTML = 'Clicked!'
       },
       'Change the value to "([^"]*)"': function(value){
-        $(this).val(value)
+        this.value = value
       },
       'Put "I Was" at the beginning': function(){
-        $(this).text("I Was " + $(this).text())
+        this.innerHTML = "I Was " + this.innerHTML
       }
     })
     
@@ -78,61 +78,61 @@
   
     module("Whenever")
     test("click", function(){
-      var link = $('a#click-me')
-      link.trigger('click')
-      equals(link.text(), 'Clicked!')
+      var link = document.getElementById('click-me')
+      triggerEvent(link, 'click')
+      equals(link.innerHTML, 'Clicked!')
     })
     
     test("focus", function(){
-      var input = $('input#focus-me')
-      input.trigger('focus')
-      equals(input.val(), 'Focussed!')
+      var input = document.getElementById('focus-me')
+      triggerEvent(input, 'focus')
+      equals(input.value, 'Focussed!')
     })
     
     test("blur", function(){
-      var input = $('input#focus-me')
-      input.trigger('blur')
-      equals(input.val(), 'Blurred!')
+      var input = document.getElementById('focus-me')
+      triggerEvent(input, 'blur')
+      equals(input.value, 'Blurred!')
     })
     
     test("not mapped", function(){
-      var link = $('a#not-mapped')
-      link.trigger('click')
-      equals(link.text(), 'Clicked!')
+      var link = document.getElementById('not-mapped')
+      triggerEvent(link, 'click')
+      equals(link.innerHTML, 'Clicked!')
     })
     
     test("chaining then with and", function(){
-      var link = $('a#two-things')
-      link.trigger('click')
-      equals(link.text(), 'I Was Clicked!')
+      var link = document.getElementById('two-things')
+      triggerEvent(link, 'click')
+      equals(link.innerHTML, 'I Was Clicked!')
     })
     
     test("simple if", function(){
-      var link = $('a#click-me-too')
-      link.trigger('click')
-      equals(link.text(), 'Click Me Too!')
+      var link = document.getElementById('click-me-too')
+      triggerEvent(link, 'click')
+      equals(link.innerHTML, 'Click Me Too!')
     })
     
     test("complex if", function(){
-      var input = $('input#focus-me-too')
-      input.trigger('click')
-      equals(input.val(), 'Focus Me Too!')
+      var input = document.getElementById('focus-me-too')
+      triggerEvent(input, 'click')
+      equals(input.value, 'Focus Me Too!')
       
-      input.val('Blue')
-      input.trigger('click')
-      equals(input.val(), 'Clicked!')
+      input.value = 'Blue'
+      triggerEvent(input, 'click')
+      equals(input.value, 'Clicked!')
     })
     
     test("if with regex", function(){
-      var link = $('a#blue')
-      link.trigger('click')
-      equals(link.text(), 'Clicked!')
+      var link = document.getElementById('blue')
+      triggerEvent(link, 'click')
+      equals(link.innerHTML, 'Clicked!')
     })
     
     test("chaining given with and", function(){
-      var link = $('a#nothing')
-      link.trigger('click')
-      equals(link.text(), 'Nothing Happens to Me!')
+      var link = document.getElementById('nothing')
+      triggerEvent(link, 'click')
+      equals(link.innerHTML, 'Nothing Happens to Me!')
     })
 
   </script>
