@@ -145,6 +145,16 @@ whenever.bind_events = function(selector, event, action){
 }
 ```
 
+or for Prototype:
+
+```javascript
+whenever.bind_events = function(selector, event, action){
+  document.on(event, selector, function(_event, element){
+    action.apply(element)
+  })
+}
+```
+
 After including your DOM library of choice, just add the `whenever.js` script to your project, eg. for jQuery:
 
 ```html
