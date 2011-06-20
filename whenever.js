@@ -82,8 +82,8 @@ whenever.conditions   = new whenever.definer;
 
 whenever.translations = {
   'clicked':'click',
-  'blurred': 'focusout',
-  'focussed':'focusin',
+  'blurred': 'blur',
+  'focussed':'focus',
   'submitted':'submit',
   'hovered over':'mouseenter',
   'changed': 'change'
@@ -93,7 +93,6 @@ for(state in whenever.translations)
 {
   (function(state){
     whenever[state] = function(selector, action, condition){
-
       var function_to_apply = function(){
         if(typeof whenever.actions[action] === 'function')
         {
@@ -134,7 +133,7 @@ for(state in whenever.translations)
           }
         }
       };
-      
+
       return whenever.bind_events(
         selector,
         whenever.translations[state],
