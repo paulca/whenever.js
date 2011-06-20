@@ -7,8 +7,7 @@
   <script type="text/javascript" src="jquery.js"></script>
   <script type="text/javascript" src="../whenever.js"></script>
   
-  <script type="text/javascript" charset="utf-8">
-  
+  <script type="text/javascript" charset="utf-8">  
     whenever.definitions.add({
       'Click Me!':              'a#click-me',
       'And Me!':                'a#and-me',
@@ -37,7 +36,7 @@
         return 1 == 2
       },
       'the value is blue': function(){
-        return $(this).val() === 'Blue'
+        return this.value === 'Blue'
       },
       'this is true': function(){
         return true
@@ -46,7 +45,7 @@
         return false
       },
       'I really am "([^"]*)"': function(value){
-        return $(this).text() === value
+        return this.innerHTML === value
       }
     })
   
