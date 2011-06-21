@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<title>whatever.js Example</title>
+<script src="../test/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="../whenever.js" type="text/javascript" charset="utf-8"></script>
+<style type="text/css" media="screen">
+  div#more-info { display: none }
+  li.tweet { cursor: pointer;}
+</style>
+
+<script type="text/javascript" charset="utf-8">
+  var tweets = []
+
+  whenever.definitions.add({
+    'a tweet': 'li.tweet',
+    'the close button on the more info pane': 'a#more-info-close-button'
+  })
+
+  whenever.actions.add({
+    'close the more info pane': function(){
+      $('div#more-info').hide('slide')
+      return false
+    },
+    'get a list of tweets': function(){
+      tweets = [
+        {status: "This is a tweet", screen_name: 'paulca', bio: "I'm Irish"},
+        {status: "In where I make obscure references in obscure chat rooms.", screen_name: 'janl', bio: "I'm German"},
+        {status: "Firefox 5 FTW.", screen_name: 'voodootikigod', bio: "I'm Crazy"}
+      ]
+    },
+    'show more information about it': function(){
+      var tweet_id = $(this).data('tweet-id')
+      var tweet = tweets[tweet_id]
+      $('div#more-info').show('slide')
+      $('dd#screen-name').text(tweet.screen_name)
+      $('dd#bio').text(tweet.bio)
+    },
+    'show them': function(){
+      for(var index in tweets)
+      {
+        var tweet = tweets[index]
+        $('div#list-of-tweets ul').append((
+          '<li class="tweet" data-tweet-id="' + index + '">' +
+            tweet.status + ' ' +
+            '<a href="http://twitter.com/' + tweet.screen_name + '">' +
+              tweet.screen_name +
+            '</a>' +
+          '</li>'
+        ))
+      }
+    }
+  })
+
+  whenever('the page').is('ready')
+    .then ('get a list of tweets')
+      .and('show them')
+  whenever('a tweet').is('clicked').then('show more information about it')
+  whenever('the close button on the more info pane').is('clicked')
+    .then('close the more info pane')
+</script>
+
+<body>
+  <div id="list-of-tweets">
+    <ul>
+    </ul>
+  </div>
+  <div id="more-info">
+    <a href="#" id="more-info-close-button">Close</a>
+    <dl>
+      <dt>Screen Name</dt>
+      <dd id="screen-name"></dd>
+      
+      <dt>Bio</dt>
+      <dd id="bio"></dd>
+    </dl>
+  </div>
+</body>
