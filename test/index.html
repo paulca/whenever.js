@@ -15,6 +15,7 @@
       'Focus Me!':              'input#focus-me',
       'Focus Me Too!':          'input#focus-me-too',
       'I am Blue':              'a#blue',
+      'the page':               document,
       'Two Things to Me':       'a#two-things',
       'Nothing Happens to Me':  'a#nothing'
     })
@@ -25,6 +26,9 @@
       },
       'Change the value to "([^"]*)"': function(value){
         this.value = value
+      },
+      'let us know about it': function(){
+        document.getElementById('ready').innerHTML = "The page is ready"
       },
       'Put "I Was" at the beginning': function(){
         this.innerHTML = "I Was " + this.innerHTML
@@ -74,8 +78,14 @@
       .is     ('clicked')
       .given  ('I really am "Blue"')
       .then   ('Change the text to "Clicked!"')
+    whenever('the page').is('ready').then('let us know about it')
   
     module("Whenever")
+    test("load", function(){
+      var div = document.getElementById('ready')
+      equals(div.innerHTML, 'The page is ready')
+    })
+    
     test("click", function(){
       var link = document.getElementById('click-me')
       triggerEvent(link, 'click')
@@ -143,6 +153,7 @@
   <ol id="qunit-tests"></ol>
 </body>
 
+<div id="ready"></div>
 <a id="click-me">Click Me!</a>
 <a id="click-me-too">Click Me Too!</a>
 <a id="two-things">Two Things Happen to Me!</a>

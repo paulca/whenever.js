@@ -8,6 +8,10 @@ var whenever = function(element){
     {
       return whenever.definitions[element];
     }
+    else if(typeof whenever.definitions[element] === 'object')
+    {
+      return whenever.definitions[element];
+    }
     else
     {
       return 'a:contains("' + element + '")';
@@ -92,11 +96,14 @@ whenever.actions      = new whenever.definer;
 whenever.conditions   = new whenever.definer;
 
 whenever.translations = {
-  'clicked':'click',
   'blurred': 'blur',
+  'clicked':'click',
   'focussed':'focus',
-  'submitted':'submit',
   'hovered over':'mouseenter',
+  'hovered out of':'mouseout',
+  'loaded': 'load',
+  'ready': 'ready',
+  'submitted':'submit',
   'changed': 'change'
 };
 
@@ -156,6 +163,13 @@ for(state in whenever.translations)
 
 whenever.bind_events = function(selector, event, action){
   return jQuery(document).ready(function(){
-    return jQuery(document).delegate(selector, event, action);
+    if(event === 'ready' || event === 'load')
+    {
+      action.apply(selector)
+    }
+    else
+    {
+      return jQuery(document).delegate(selector, event, action);
+    }
   });
 }
