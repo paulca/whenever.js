@@ -74,7 +74,9 @@ var whenever = function(element){
   then = function(action){
     whenever[binding.event](binding.selector, action, binding.condition);
     return {
-      and: then
+      and: function(action){
+        whenever[binding.event](binding.selector, action);
+      }
     }
   }
   

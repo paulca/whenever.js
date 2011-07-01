@@ -17,6 +17,7 @@
       'I am Blue':              'a#blue',
       'the page':               document,
       'Two Things to Me':       'a#two-things',
+      'Two Things to Me Too':   'a#two-things-too',
       'Nothing Happens to Me':  'a#nothing'
     })
     
@@ -41,6 +42,9 @@
       },
       'the value is blue': function(){
         return this.value === 'Blue'
+      },
+      'the text is not "Clicked!"': function(){
+        return this.innerHTML !== 'Clicked!'
       },
       'this is true': function(){
         return true
@@ -78,6 +82,11 @@
       .is     ('clicked')
       .given  ('I really am "Blue"')
       .then   ('Change the text to "Clicked!"')
+    whenever  ('Two Things to Me Too')
+      .is     ('clicked')
+      .given  ('the text is not "Clicked!"')
+      .then   ('Change the text to "Clicked!"')
+      .and    ('Put "I Was" at the beginning')
     whenever('the page').is('ready').then('let us know about it')
   
     module("Whenever")
@@ -143,6 +152,12 @@
       triggerEvent(link, 'click')
       equals(link.innerHTML, 'Nothing Happens to Me!')
     })
+    
+    test("chaining actions with a given", function(){
+      var link = document.getElementById('two-things-too')
+      triggerEvent(link, 'click')
+      equals(link.innerHTML, 'I Was Clicked!')
+    })
 
   </script>
 </head>
@@ -157,6 +172,7 @@
 <a id="click-me">Click Me!</a>
 <a id="click-me-too">Click Me Too!</a>
 <a id="two-things">Two Things Happen to Me!</a>
+<a id="two-things-too">Two Things Happen to Me Too!</a>
 <a id="nothing">Nothing Happens to Me!</a>
 <a id="blue">Blue</a>
 <a id="not-mapped">Not Mapped</a>
