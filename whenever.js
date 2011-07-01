@@ -24,6 +24,7 @@ var whenever = function(element){
   };
   var is, given, then;
   
+  // store the event and return an object for chaining
   is = function(event){
     binding.event = event
     return {
@@ -33,7 +34,10 @@ var whenever = function(element){
     }
   }
   
+  // store a predicate along the chain
   given = function(condition){
+    
+    // use the label, or the Regex as appropriate to find the right function
     var function_to_apply = function(){
       if(typeof whenever.conditions[condition] === 'function')
       {
@@ -57,6 +61,7 @@ var whenever = function(element){
       }
     };
     
+    // keep building up the predicates, if .and() is called
     var other_conditions = function(){ return true; };
     if(typeof binding.condition === 'function')
     {
@@ -65,14 +70,19 @@ var whenever = function(element){
     binding.condition = function(){
       return function_to_apply().apply(this) && other_conditions();
     };
+    
+    // and and then are before we've called then
     return {
       and: given,
       then: then
     }
   }
   
+  // call the binding function with condition as appropriate
   then = function(action){
     whenever[binding.event](binding.selector, action, binding.condition);
+    
+    // leave out the condition, we only want it for the first one
     return {
       and: function(action){
         whenever[binding.event](binding.selector, action);
