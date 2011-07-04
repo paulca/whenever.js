@@ -135,12 +135,25 @@ If your DOM library supports jQuery syntax (eg. Zepto), you can just replace jQu
 var jQuery = $;
 ```
 
-Alternatively, you can implement your own `whenever.bind_events` function. Here's what it looks like for jQuery:
+Alternatively, you can implement your own `whenever.bind_function_to_event` and `whenever.unbind_function_to_event` function. Here's what they look like for jQuery:
 
 ```javascript
-whenever.bind_events = function(selector, event, action){
+whenever.unbind_function_to_event = function(selector, event, action){
   return jQuery(document).ready(function(){
-    return jQuery(document).delegate(selector, event, action);
+    jQuery(document).undelegate(selector, event, action);
+  })
+}
+
+whenever.bind_function_to_event = function(selector, event, action){
+  return jQuery(document).ready(function(){
+    if(event === 'ready' || event === 'load')
+    {
+      action.apply(selector)
+    }
+    else
+    {
+      return jQuery(document).delegate(selector, event, action);
+    }
   });
 }
 ```
@@ -148,10 +161,23 @@ whenever.bind_events = function(selector, event, action){
 or for Prototype:
 
 ```javascript
-whenever.bind_events = function(selector, event, action){
-  document.on(event, selector, function(_event, element){
-    action.apply(element)
-  })
+whenever.unbind_function_to_event = function(selector, event, action){
+  document.stopObserving(selector, event, action)
+}
+
+whenever.bind_function_to_event = function(selector, event, action){
+  if(event === 'ready' || event === 'load')
+  {
+    document.observe('dom:loaded', function(){
+      action.apply(document)
+    })
+  }
+  else
+  {
+    document.on(event, selector, function(_event, element){
+      action.apply(element)
+    })
+  }
 }
 ```
 

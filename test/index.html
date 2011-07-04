@@ -4,9 +4,41 @@
 <head>
   <link rel="stylesheet" href="qunit.css" type="text/css" media="screen" />
   <script type="text/javascript" src="qunit.js"></script>
-  <script type="text/javascript" src="jquery.js"></script>
   <script type="text/javascript" src="../whenever.js"></script>
   
+  <script type="text/javascript" src="jquery.js"></script>
+
+
+<!--   <script type="text/javascript" src="zepto.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    jQuery = $
+  </script>
+ -->
+
+
+<!--  <script type="text/javascript" src="prototype.js"></script>
+ <script type="text/javascript" charset="utf-8">
+  whenever.unbind_function_to_event = function(selector, event, action){
+    document.stopObserving(selector, event, action)
+  }
+
+  whenever.bind_function_to_event = function(selector, event, action){
+    if(event === 'ready' || event === 'load')
+    {
+      document.observe('dom:loaded', function(){
+        action.apply(document)
+      })
+    }
+    else
+    {
+      document.on(event, selector, function(_event, element){
+        action.apply(element)
+      })
+    }
+  }
+ </script> -->
+
+    
   <script type="text/javascript" charset="utf-8">  
     whenever.definitions.add({
       'Click Me!':              'a#click-me',
@@ -78,11 +110,11 @@
       .given  ('this is true')
       .and    ('this is false')
       .then   ('Change the text to "Clicked!"')
+      .and    ('Change the text to "Clicked!"')
     whenever  ('I am Blue')
       .is     ('clicked')
       .given  ('I really am "Blue"')
       .then   ('Change the text to "Clicked!"')
-      .and    ('Change the text to "Clicked!"')
     whenever  ('Two Things to Me Too')
       .is     ('clicked')
       .given  ('the text is not "Clicked!"')
@@ -95,68 +127,68 @@
       var div = document.getElementById('ready')
       equals(div.innerHTML, 'The page is ready')
     })
-    
+
     test("click", function(){
       var link = document.getElementById('click-me')
-      triggerEvent(link, 'click')
+      QUnit.triggerEvent(link, 'click')
       equals(link.innerHTML, 'Clicked!')
     })
     
     test("focus", function(){
       var input = document.getElementById('focus-me')
-      triggerEvent(input, 'focus')
+      QUnit.triggerEvent(input, 'focus')
       equals(input.value, 'Focussed!')
     })
     
     test("blur", function(){
       var input = document.getElementById('focus-me')
-      triggerEvent(input, 'blur')
+      QUnit.triggerEvent(input, 'blur')
       equals(input.value, 'Blurred!')
     })
     
     test("not mapped", function(){
       var link = document.getElementById('not-mapped')
-      triggerEvent(link, 'click')
+      QUnit.triggerEvent(link, 'click')
       equals(link.innerHTML, 'Clicked!')
     })
     
     test("chaining then with and", function(){
       var link = document.getElementById('two-things')
-      triggerEvent(link, 'click')
+      QUnit.triggerEvent(link, 'click')
       equals(link.innerHTML, 'I Was Clicked!')
     })
     
     test("simple if", function(){
       var link = document.getElementById('click-me-too')
-      triggerEvent(link, 'click')
+      QUnit.triggerEvent(link, 'click')
       equals(link.innerHTML, 'Click Me Too!')
     })
     
     test("complex if", function(){
       var input = document.getElementById('focus-me-too')
-      triggerEvent(input, 'click')
+      QUnit.triggerEvent(input, 'click')
       equals(input.value, 'Focus Me Too!')
       
       input.value = 'Blue'
-      triggerEvent(input, 'click')
+      QUnit.triggerEvent(input, 'click')
       equals(input.value, 'Clicked!')
     })
     
     test("if with regex", function(){
       var link = document.getElementById('blue')
-      triggerEvent(link, 'click')
+      QUnit.triggerEvent(link, 'click')
       equals(link.innerHTML, 'Clicked!')
     })
     
     test("chaining given with and", function(){
       var link = document.getElementById('nothing')
-      triggerEvent(link, 'click')
+      QUnit.triggerEvent(link, 'click')
       equals(link.innerHTML, 'Nothing Happens to Me!')
     })
     
     test("chaining actions with a given", function(){
       var link = document.getElementById('two-things-too')
-      triggerEvent(link, 'click')
+      QUnit.triggerEvent(link, 'click')
       equals(link.innerHTML, 'I Was Clicked!')
     })
 
