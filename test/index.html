@@ -61,7 +61,10 @@
         this.value = value
       },
       'let us know about it': function(){
-        document.getElementById('ready').innerHTML = "The page is ready"
+        document.getElementById('ready').innerHTML = document.getElementById('ready').innerHTML + "The page is ready"
+      },
+      'really confirm it': function(){
+        document.getElementById('ready').innerHTML = document.getElementById('ready').innerHTML + ", really"
       },
       'Put "I Was" at the beginning': function(){
         this.innerHTML = "I Was " + this.innerHTML
@@ -120,12 +123,14 @@
       .given  ('the text is not "Clicked!"')
       .then   ('Change the text to "Clicked!"')
       .and    ('Put "I Was" at the beginning')
-    whenever('the page').is('ready').then('let us know about it')
+    whenever  ('the page').is('ready')
+      .then   ('let us know about it')
+      .and    ('really confirm it')
   
     module("Whenever")
     test("load", function(){
       var div = document.getElementById('ready')
-      equals(div.innerHTML, 'The page is ready')
+      equals(div.innerHTML, 'The page is ready, really')
     })
 
     test("click", function(){

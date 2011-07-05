@@ -98,7 +98,7 @@ var whenever = function(element){
     binding.actions.push(action)
     
     // unbind the previous 'then' or 'and'
-    if(typeof binding.action === 'function')
+    if(typeof binding.action === 'function' && binding.event != 'ready' && binding.event != 'load')
     {
       whenever.unbind_function_to_event(
         binding.selector,
@@ -117,9 +117,16 @@ var whenever = function(element){
           return false
         }
       }
-      for(var i = 0; i<binding.actions.length; i++)
+      if(binding.event != 'ready' && binding.event != 'load')
       {
-        out = choose_function(binding.actions[i], whenever.actions).apply(this);
+        for(var i = 0; i<binding.actions.length; i++)
+        {
+          out = choose_function(binding.actions[i], whenever.actions).apply(this);
+        }
+      }
+      else
+      {
+        out = choose_function(action, whenever.actions).apply(this);
       }
 
       // return the result of the last function in the chain
