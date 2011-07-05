@@ -16,7 +16,6 @@
       var title = $('form#new-post input[name=title]').val()
       var content = $('form#new-post textarea[name=content]').val()
       $('div#posts').append("<h2>" + title + "</h2><p>" + content + "</p>")
-      return false
     },
     'slide the new post form (in|out)': function(){
       $('form#new-post').toggle('slide')
@@ -24,6 +23,7 @@
     },
     'reset the form': function(){
       this.reset()
+      return false
     }
   })
 

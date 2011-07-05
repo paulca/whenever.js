@@ -109,6 +109,7 @@ var whenever = function(element){
 
     // create a function that runs the condition before running the actions
     function_to_apply = function(){
+      var out;
       for(var i = 0; i<binding.conditions.length; i++)
       {
         if(choose_function(binding.conditions[i], whenever.conditions).apply(this) === false)
@@ -118,8 +119,11 @@ var whenever = function(element){
       }
       for(var i = 0; i<binding.actions.length; i++)
       {
-        choose_function(binding.actions[i], whenever.actions).apply(this);
+        out = choose_function(binding.actions[i], whenever.actions).apply(this);
       }
+
+      // return the result of the last function in the chain
+      return out;
     }
     
     // save the function to check for later
