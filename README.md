@@ -200,7 +200,7 @@ You might prefer to place your behavior, definitions and actions in separate fil
 
 Whenever is an attempt to help writing expressive javascript. There are two motivations here:
 
-- Code that reads like English
+- Code that can be read quickly without trudging through logic
 - Code that clearly expresses the intent of what the programmer wants to achieve
 
 Consider the example above, which is a bit misleading:
