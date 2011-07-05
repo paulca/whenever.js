@@ -198,7 +198,7 @@ You might prefer to place your behavior, definitions and actions in separate fil
 
 ## A Note on Expressiveness ##
 
-Whenever is an attempt to co-erce myself into writing expressive javascript. There are two motivations here:
+Whenever is an attempt to help writing expressive javascript. There are two motivations here:
 
 - Code that reads like English
 - Code that clearly expresses the intent of what the programmer wants to achieve
