@@ -209,7 +209,13 @@ Consider the example above, which is a bit misleading:
 whenever('Click Me!').is('clicked').then('Change the text to "Clicked!"')
 ```
 
-This is a trite example, which serves to explain the basic workings of Whenever, but it's not necessarily a great example.
+This is a trite example, which serves to explain the basic workings of Whenever, but it's not necessarily a great example, since it doesn't encapsulate very much, and doesn't explain much more than the equivalent jQuery would:
+
+```javascript
+$('a#click-me').click(function(){ $(this).html('Clicked!') })
+```
+
+It does remove a lot of the cruft, but it might be argued that it doesn't _add_ a lot of meaning vs. the straight jQuery.
 
 Riffing on this a little:
 
@@ -217,18 +223,18 @@ Riffing on this a little:
 whenever('Click Me!').is('clicked').then('show the user that they clicked')
 ```
 
-This is (probably) better, but maybe a bit abstract. But it does get away from the danger of writing code in English, which completely misses the point. Consider:
+This is (probably) better, but maybe a bit abstract. It does get away from the danger of writing code in English, which completely misses the point. Consider:
 
 ```javascript
 whenever('Click Me!').is('clicked').then('add the "display" class')
 ```
 
-Basically, this doesn't express any more intent than the equivalent jQuery:
+Basically, when it gets to this, it's almost identical to the jQuery, and tells us nothing about why we would want to add the display class, or what that means.
 
 ```javascript
-$('a#click-me').click(function(){ $(this).addClass('display) })
+$('a#click-me').click(function(){ $(this).addClass('display') })
 ```
 
-... in that it inherently shows what the code _does_ but not what the overall intent was.
+It inherently shows what the code _does_ but not what the overall intent was.
 
-The point is, whenever is an exercise in writing clean code and not necessarily writing code in English for its own sake.
+The point is, whenever is an exercise in writing clean code and not necessarily writing code in English for its own sake. Like everything, it's a fine balance.
