@@ -1,6 +1,6 @@
 # Whenever.js #
 
-Whenever is a javascript library that provides a simple domain specific language on top of jQuery to specify your application's behavior using a syntax that reads like English.
+Whenever is a javascript library that lets you write your application logic in a format that reads like English. You define your definitions by using a simple expression chain, then hook it up in the background using jQuery, zepto, Prototype, mootools, dojo et al. jQuery support ships out of the box.
 
 Whenever helps you to organise your javascripts in a clean and tidy way, and keeps your implementation logic separate from your behavioral logic.
 
@@ -119,15 +119,21 @@ That's it!
 
 At the moment, the following actions are supported:
 
-    'clicked':      'click',
-    'blurred':      'focusout',
-    'focussed':     'focusin',
-    'submitted':    'submit',
-    'hovered over': 'mouseenter'
+```javascript
+'blurred': 'blur',
+'clicked':'click',
+'focussed':'focus',
+'hovered over':'mouseenter',
+'hovered out of':'mouseout',
+'loaded': 'load',
+'ready': 'ready',
+'submitted':'submit',
+'changed': 'change'
+```
 
 ## Installation ##
 
-Whenever.js needs a DOM library in order to bind actions to events. Out of the box, it comes with support for `jQuery`, but as long as you have an underlying library that supports standard events, you can probably use it.
+Whenever.js needs a DOM library in order to bind actions to events. Out of the box, it comes with support for `jQuery`, but as long as you have an underlying library that supports binding events to elements, you can probably use it.
 
 If your DOM library supports jQuery syntax (eg. Zepto), you can just replace jQuery with that globally. eg. with Zepto:
 
@@ -189,3 +195,40 @@ After including your DOM library of choice, just add the `whenever.js` script to
 ```
 
 You might prefer to place your behavior, definitions and actions in separate files, or all in the one file.
+
+## A Note on Expressiveness ##
+
+Whenever is an attempt to co-erce myself into writing expressive javascript. There are two motivations here:
+
+- Code that reads like English
+- Code that clearly expresses the intent of what the programmer wants to achieve
+
+Consider the example above, which is a bit misleading:
+
+```javascript
+whenever('Click Me!').is('clicked').then('Change the text to "Clicked!"')
+```
+
+This is a trite example, which serves to explain the basic workings of Whenever, but it's not necessarily a great example.
+
+Riffing on this a little:
+
+```javascript
+whenever('Click Me!').is('clicked').then('show the user that they clicked')
+```
+
+This is (probably) better, but maybe a bit abstract. But it does get away from the danger of writing code in English, which completely misses the point. Consider:
+
+```javascript
+whenever('Click Me!').is('clicked').then('add the "display" class')
+```
+
+Basically, this doesn't express any more intent than the equivalent jQuery:
+
+```javascript
+$('a#click-me').click(function(){ $(this).addClass('display) })
+```
+
+... in that it inherently shows what the code _does_ but not what the overall intent was.
+
+The point is, whenever is an exercise in writing clean code and not necessarily writing code in English for its own sake.
