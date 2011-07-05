@@ -1,5 +1,14 @@
-Mon Jun 20
-- - - - - -
+Tues Jul 5, 2011
+- - - - - - - - -
+- expand README
+
+Tues Jul 4, 2011
+- - - - - - - - -
+- internal refactor, less nested closures, more comments
+- Fix bug where a predicate chain would stop execution if a step within the chain negated the predicate.
+
+Mon Jun 20, 2011
+- - - - - - - - -
 - Add a neat blog example
 - Separate out all the definitions
 - Add VERSION file
